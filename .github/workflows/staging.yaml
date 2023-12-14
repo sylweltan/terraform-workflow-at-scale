@@ -76,7 +76,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
-            const content = fs.readFileSync('/tmp/plan.txt', 'utf8');
+            const plan = fs.readFileSync('/tmp/plan.txt', 'utf8');
             const maxGitHubBodyCharacters = 65536;
 
             function chunkSubstr(str, size) {
