@@ -1,0 +1,38 @@
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terrascan_job:
+    permissions:
+      contents: read          # for actions/checkout to fetch code
+      security-events: write  # SARIF upload requires write access to security events
+    runs-on: ubuntu-latest
+    name: terrascan-action
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Run Terrascan
+      id: terrascan
+      uses: tenable/terrascan-action@v1.5.0
+      with:
+        iac_type: 'terraform'
+        iac_version: 'v14'
+        policy_type: 'azure'
+        only_warn: true
+        sarif_upload: true
+        #non_recursive:
+        iac_dir: ./staging
+        #policy_path:
+        #skip_rules:
+        #config_path:
+        #webhook_url:
+        #webhook_token:
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: terrascan.sarif
+        category: terrascan
+
