@@ -2,6 +2,9 @@ on: [push]
 
 jobs:
   terrascan_job:
+    permissions:
+      contents: read          # for actions/checkout to fetch code
+      security-events: write  # SARIF upload requires write access to security events
     runs-on: ubuntu-latest
     name: terrascan-action
     steps:
