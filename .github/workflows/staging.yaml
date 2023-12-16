@@ -31,17 +31,6 @@ jobs:
         with:
           terraform_version: 1.5.6
           terraform_wrapper: false
-      - name: Dirty Debug
-        id: debug
-        run: |
-          pwd
-          echo "PWD: ${PWD}"
-          echo "ls -al:"
-          ls -al
-          echo "ls -ltr"
-          ls -ltr
-          echo "Find folders staging:"
-          find . -name staging -type d
       - name: Terraform Init
         id: init
         run: terraform init
